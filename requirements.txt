@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+langchain
+openai
+python-dotenv
+docx2txt
+pymupdf
+firebase-admin
+chromadb

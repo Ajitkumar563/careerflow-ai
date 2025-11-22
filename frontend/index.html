@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Careerflow Resume AI</h2>
+
+<input type="file" id="file">
+<button onclick="upload()">Upload Resume</button>
+
+<div id="chat"></div>
+
+<input id="msg" placeholder="Type message...">
+<button onclick="send()">Send</button>
+
+<script>
+async function upload() {
+  let f = new FormData();
+  f.append("file", document.getElementById("file").files[0]);
+
+  let r = await fetch("/upload-resume", { method: "POST", body: f });
+  alert("Uploaded!");
+}
+
+async function send() {
+  let m = document.getElementById("msg").value;
+  let f = new FormData();
+  f.append("message", m);
+
+  let r = await fetch("/chat", { method: "POST", body: f });
+  let j = await r.json();
+
+  document.getElementById("chat").innerHTML += `
+    <p><b>You:</b> ${m}</p>
+    <p><b>${j.agent}:</b> ${j.response}</p>
+  `;
+}
+</script>
+</body>
+</html>
